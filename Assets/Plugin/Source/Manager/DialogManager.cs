@@ -15,7 +15,7 @@ public class DialogManager : MonoBehaviour
 	[SerializeField]
     private DialogNodeCanvas dialogCanvasToLoad;
 
-    [SerializeField]
+    [SerializeField] 
     private RectTransform _canvasObject;
     
     public void Awake()

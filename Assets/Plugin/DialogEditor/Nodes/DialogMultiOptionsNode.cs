@@ -15,6 +15,7 @@ public class DialogMultiOptionsNode : BaseDialogNode
     private const int StartValue = 222;
     private const int SizeValue = 22;
 
+    private const int OutputIndex = 1;
     [SerializeField]
     List<DataHolderForOption> _options;
 
@@ -92,16 +93,16 @@ public class DialogMultiOptionsNode : BaseDialogNode
 	private void DrawOptions()
 	{
 		EditorGUILayout.BeginVertical();
-		foreach (var option in _options.ToList()) {
+		for(int i = OutputIndex; i < Outputs.Count; i++)
+        {
 			GUILayout.BeginVertical();
 			GUILayout.BeginHorizontal();
-			EditorGUILayout.LabelField(Outputs.IndexOf(option.NodeOutput) + ".", GUILayout.MaxWidth(15));
-			option.OptionDisplay = EditorGUILayout.TextArea(option.OptionDisplay, GUILayout.MinWidth(80));
-			OutputKnob (Outputs.IndexOf(option.NodeOutput));
+			EditorGUILayout.LabelField(Outputs.IndexOf(Outputs[i]) + ".", GUILayout.MaxWidth(15));
+			Outputs[i].name = EditorGUILayout.TextArea(Outputs[i].name, GUILayout.MinWidth(80));
+			OutputKnob (Outputs.IndexOf(Outputs[i]));
 			if (GUILayout.Button("‒", GUILayout.Width(20)))
 			{
-				_options.Remove(option);
-				option.NodeOutput.Delete();
+                Outputs[i].Delete(); 
 				rect = new Rect(rect.x, rect.y, rect.width, rect.height - SizeValue);
 			}
 
@@ -114,18 +115,20 @@ public class DialogMultiOptionsNode : BaseDialogNode
 
     private void AddNewOption()
     {
-        DataHolderForOption option = new DataHolderForOption {OptionDisplay = "Write Here"};
-		option.NodeOutput = CreateOutput("Next Node", "DialogForward", NodeSide.Right,
-            StartValue + _options.Count * SizeValue);        
+        //DataHolderForOption option = new DataHolderForOption {OptionDisplay = "Write Here"};
+
+        
+		CreateOutput("Next Node", "DialogForward", NodeSide.Right, StartValue + (Outputs.Count - 1) * SizeValue);        
         rect = new Rect(rect.x, rect.y, rect.width, rect.height + SizeValue);
-        _options.Add(option);
+        //_options.Add(option);
+
     }
 
     //For Resolving the Type Mismatch Issue
     private void IssueEditorCallBacks()
     {
-        DataHolderForOption option = _options.Last();
-		NodeEditorCallbacks.IssueOnAddNodeKnob(option.NodeOutput);
+        //DataHolderForOption option = _options.Last();
+		//NodeEditorCallbacks.IssueOnAddNodeKnob(option.NodeOutput);
     }
 
     public override BaseDialogNode Input(int inputValue)
@@ -141,8 +144,8 @@ public class DialogMultiOptionsNode : BaseDialogNode
                     return Outputs[0].GetNodeAcrossConnection() as BaseDialogNode;
                 break;
             default:
-                if(_options[inputValue].NodeOutput.GetNodeAcrossConnection() != default(Node))
-					return _options[inputValue].NodeOutput.GetNodeAcrossConnection() as BaseDialogNode;
+                if(Outputs[inputValue].GetNodeAcrossConnection() != default(Node))
+					return Outputs[inputValue].GetNodeAcrossConnection() as BaseDialogNode;
                 break;
         }
         return null;
