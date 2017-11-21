@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a10c126ad86af04c93d27f14ac86f15, type: 3}
+  m_Name: Step1
+  m_EditorClassIdentifier: 
+  noun: step1
+  description: Step 1
+  detailedDescription: This is Step 1
+  interactionsDescriptions: 'Interactions :'
+  validInteractions:
+  - {fileID: 11400000, guid: 13057dbf17027d4498058c027bd266ed, type: 2}
+  - {fileID: 11400000, guid: 2d46d0ca9636f6444888133121c41725, type: 2}
+  - {fileID: 11400000, guid: 74dee9d8f3edc7f4a8b0c284f3e13e36, type: 2}
+  - {fileID: 11400000, guid: 04f015c9a4ba5f14ebc3328ae2dea7a2, type: 2}
